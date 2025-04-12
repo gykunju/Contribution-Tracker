@@ -1,0 +1,9 @@
+@import url("https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Karla:wght@334&display=swap");
+
+
+@layer base {
+  html, body {
+    @apply antialiased scroll-smooth;
+    font-family: 'Geist', sans-serif;
+  }
+}
