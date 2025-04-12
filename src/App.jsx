@@ -276,7 +276,7 @@ function App() {
               <p className="text-zinc-500 text-xl sm:text-lg xs:text-base">
                 Your Contributions
               </p>
-              <h2 className="text-red-800 text-5xl sm:text-4xl xs:text-3xl font-bold">
+              <h2 className="text-zinc-200 text-5xl sm:text-4xl xs:text-3xl font-bold">
                 ${localStorage.getItem("currentUserContributions")}
               </h2>
             </div>
