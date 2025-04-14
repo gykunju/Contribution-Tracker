@@ -1,6 +1,8 @@
 {
   "short_name": "Contrib Tracker",
   "name": "Contribution Tracker",
+  "start_url": ".",
+  "scope": ".",
   "icons": [
     {
       "src": "./src/assets/stock.png",
@@ -13,7 +15,6 @@
       "type": "image/png"
     }
   ],
-  "start_url": "/index.html",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#000000",

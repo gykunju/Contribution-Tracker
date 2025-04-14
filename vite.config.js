@@ -13,6 +13,7 @@ export default defineConfig({
   build: {
     minify: "esbuild", // Ensure JavaScript is minified
     chunkSizeWarningLimit: 500, // Reduce chunk size warnings
+    outDir: 'dist' // Output directory
   },
   base: process.env.NODE_ENV === "production" ? "/Contribution-Tracker/" : "/", // Use correct base for GitHub Pages
 });
