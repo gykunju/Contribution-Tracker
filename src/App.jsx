@@ -17,6 +17,7 @@ const BsPerson = lazy(() =>
 const MdOutlineGroups = lazy(() =>
   import("react-icons/md").then((mod) => ({ default: mod.MdOutlineGroups }))
 );
+import { BiLogOut } from "react-icons/bi";
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
@@ -152,6 +153,14 @@ function App() {
     }
   }
 
+  const handleLogout = async () => {
+    const { error } = await supabase.auth.signOut();
+    if (!error) {
+      setIsLoggedIn(false);
+      localStorage.clear();
+    }
+  };
+
   if (!isLoggedIn) {
     return (
       <div
@@ -251,6 +260,19 @@ function App() {
           // backdropFilter: "blur(8px)",
         }}
       >
+        <div className="flex justify-between items-center mb-5">
+          <h1 className="text-zinc-200 text-xl font-bold sm:text-3xl xs:text-2xl">
+            CONTRIBUTION OVERVIEW ({localStorage.getItem("user")})
+          </h1>
+          <button
+            onClick={handleLogout}
+            className="flex items-center space-x-2 px-4 py-2 bg-zinc-800 hover:bg-zinc-700 
+              text-zinc-200 rounded-lg transition-colors duration-200"
+          >
+            <BiLogOut className="text-xl" />
+            <span>Logout</span>
+          </button>
+        </div>
         <div
           className="absolute inset-0"
           style={{
@@ -258,9 +280,6 @@ function App() {
             zIndex: -1, // Ensure it stays behind the content
           }}
         ></div>
-        <h1 className="text-zinc-200 text-center text-3xl font-bold sm:text-3xl xs:text-2xl">
-          CONTRIBUTION OVERVIEW ({localStorage.getItem("user")})
-        </h1>
         <div className="flex flex-wrap gap-4 justify-center">
           <div className="border-2 border-zinc-700 rounded-xl p-4 space-x-4 flex flex-row items-center w-full sm:w-1/3 xs:w-full">
             <GrMoney className="text-zinc-500 text-7xl sm:text-6xl xs:text-5xl" />
@@ -298,13 +317,11 @@ function App() {
             </div>
           </div>
         </div>
-        <div className="p-4">
-          <h2 className="text-2xl sm:text-xl xs:text-lg text-zinc-200 font-medium">
+        <div className="p-4 bg-zinc-900/50 rounded-xl backdrop-blur-[.2px]">
+          <h2 className="text-2xl sm:text-xl xs:text-lg text-zinc-200 font-medium mb-4">
             Transactions
           </h2>
-          <div className="overflow-x-auto">
-            <TransactionsTable data={data} />
-          </div>
+          <TransactionsTable data={data} />
         </div>
       </div>
     </Suspense>
