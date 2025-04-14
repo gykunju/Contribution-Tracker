@@ -3,19 +3,18 @@
     "name": "Contribution Tracker",
     "icons": [
         {
-            "src": "./src/assets/43012.jpg",
+            "src": "./src/assets/stock.png",
             "sizes": "192x192",
-            "type": "image/jpg"
+            "type": "image/png"
         },
         {
-            "src": "./src/assets/43012.jpg",
+            "src": "./src/assets/stock.png",
             "sizes": "512x512",
-            "type": "image/jpg"
+            "type": "image/png"
         }
     ],
     "start_url": "/index.html",
     "display": "standalone",
     "background_color": "#ffffff",
     "theme_color": "#000000"
-
 }
