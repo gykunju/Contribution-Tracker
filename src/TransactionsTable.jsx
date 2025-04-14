@@ -15,12 +15,14 @@ function TransactionsTable({ data }) {
         {data.map((transaction) => (
           <tr
             key={transaction.id}
-            className="text-zinc-200 text-xl sm:text-lg xs:text-base border text-start"
+            className="text-zinc-200 text-xl sm:text-lg xs:text-base border-3 rounded-xl border-zinc-800 text-start"
           >
-            <td className="p-3 border">{transaction.memberName}</td>
-            <td className="p-3 border">{transaction.memberEmail}</td>
-            <td className="p-3 border">{transaction.amount}</td>
-            <td className="p-3 border">{transaction.created_at}</td>
+            <td className="p-3 border-2 border-zinc-800 rounded-xl">{transaction.memberName}</td>
+            <td className="p-3 border-2 border-zinc-800 rounded-xl">{transaction.memberEmail}</td>
+            <td className="p-3 border-2 border-zinc-800 rounded-xl">{transaction.amount}</td>
+            <td className="p-3 border-2 border-zinc-800 rounded-xl">
+              {new Date(transaction.created_at).toISOString().split("T")[0]}
+            </td>
           </tr>
         ))}
       </tbody>
