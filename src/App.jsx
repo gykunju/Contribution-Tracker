@@ -86,9 +86,10 @@ function App() {
 
       // Calculate current contributor's contributions
       const currentUser = localStorage.getItem("user");
+      const currentEmail = localStorage.getItem('email')
       const currentUserContributions = mergedData
         .filter(
-          (transaction) => transaction.memberName.split(" ")[0] === currentUser
+          (transaction) => transaction.memberEmail === currentEmail
         )
         .reduce((acc, transaction) => acc + transaction.amount, 0);
 
@@ -135,6 +136,8 @@ function App() {
       setErrors(error.message);
     } else {
       setIsLoggedIn(true);
+      localStorage.setItem("user", data.user.user_metadata.first_name);
+      localStorage.setItem("email", data.user.user_metadata.email);
     }
   }
 
@@ -150,12 +153,19 @@ function App() {
     } else {
       setIsLoggedIn(true);
       localStorage.setItem("user", data.user.user_metadata.first_name);
+      localStorage.setItem('email', data.user.user_metadata.email)
     }
   }
 
   const handleLogout = async () => {
     const { error } = await supabase.auth.signOut();
     if (!error) {
+      setEmail("");
+      setPassword("");
+      setFirstName("");
+      setLastName("");
+      setErrors(null);
+      setIsSigningUp(false);
       setIsLoggedIn(false);
       localStorage.clear();
     }
