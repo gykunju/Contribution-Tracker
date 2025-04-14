@@ -1,7 +1,7 @@
 import { useState, useEffect, Suspense, lazy } from "react";
 import { createClient } from "@supabase/supabase-js";
 // Lazy-load the background image
-const backgroundImage = new URL("./assets/login.webp", import.meta.url).href;
+import backgroundImage from './assets/login.png'
 import "./App.css";
 
 // Lazy-load non-critical components
@@ -155,77 +155,78 @@ function App() {
   if (!isLoggedIn) {
     return (
       <div
-        className="flex items-center bg-zinc-900 justify-center min-h-screen bg-cover bg-center p-6"
-        style={{
-          backgroundImage: `url(${backgroundImage})`,
-          backgroundColor: "rgba(2, 2, 2, 2)", // Add a dark overlay
-          backgroundBlendMode: "darken", // Blend the overlay with the image
-        }}
+      className="flex items-center bg-zinc-900 justify-center min-h-screen bg-cover bg-center p-6"
+      style={{
+        backgroundImage: `url(${backgroundImage})`,
+        backgroundColor: "rgba(2, 2, 2, 2)", // Add a dark overlay
+        backgroundBlendMode: "darken", // Blend the overlay with the image
+        backdropFilter: "blur(8px)", // Apply blur effect to the background image
+      }}
       >
-        <div className="border-2 border-zinc-700 bg-opacity-100 p-8 rounded-lg shadow-lg max-w-md">
-          <h2 className="text-3xl font-bold text-zinc-200 text-center mb-6">
-            {isSigningUp ? "Create an Account" : "Log In"}
-          </h2>
-          <form
-            onSubmit={isSigningUp ? handleSignUp : handleLogin}
-            className="space-y-4"
-          >
-            {isSigningUp && (
-              <div className="flex flex-col gap-4">
-                <input
-                  type="text"
-                  placeholder="First Name"
-                  className="text-md text-zinc-100 border border-zinc-700 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  value={firstName}
-                  onChange={(e) => setFirstName(e.target.value)}
-                />
-                <input
-                  type="text"
-                  placeholder="Last Name"
-                  className="text-md text-zinc-100 border border-zinc-700 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  value={lastName}
-                  onChange={(e) => setLastName(e.target.value)}
-                />
-              </div>
-            )}
-            <input
-              type="email"
-              placeholder="Email"
-              className="text-md text-zinc-100 border border-zinc-700 rounded-lg p-3 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <input
-              type="password"
-              placeholder="Password"
-              className="text-md text-zinc-100 border border-zinc-700 rounded-lg p-3 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <div>
-              {errors && (
-                <p className="text-red-500 text-sm text-center">{errors}</p>
-              )}
-            </div>
-            <button
-              type="submit"
-              className="w-full bg-blue-600 text-white text-lg font-semibold py-3 rounded-lg hover:bg-blue-700 transition duration-300"
-            >
-              {isSigningUp ? "Sign Up" : "Log In"}
-            </button>
-          </form>
-          <p className="text-zinc-200 text-center mt-4">
-            {isSigningUp
-              ? "Already have an account? "
-              : "Don't have an account? "}
-            <span
-              className="text-blue-500 cursor-pointer"
-              onClick={() => setIsSigningUp(!isSigningUp)}
-            >
-              {isSigningUp ? "Log In" : "Sign Up"}
-            </span>
-          </p>
+      <div className="border-2 border-zinc-700 bg-opacity-100 p-8 rounded-lg shadow-lg max-w-md">
+        <h2 className="text-3xl font-bold text-zinc-200 text-center mb-6">
+        {isSigningUp ? "Create an Account" : "Log In"}
+        </h2>
+        <form
+        onSubmit={isSigningUp ? handleSignUp : handleLogin}
+        className="space-y-4"
+        >
+        {isSigningUp && (
+          <div className="flex flex-col gap-4">
+          <input
+            type="text"
+            placeholder="First Name"
+            className="text-md text-zinc-100 border border-zinc-700 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
+          />
+          <input
+            type="text"
+            placeholder="Last Name"
+            className="text-md text-zinc-100 border border-zinc-700 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
+          />
+          </div>
+        )}
+        <input
+          type="email"
+          placeholder="Email"
+          className="text-md text-zinc-100 border border-zinc-700 rounded-lg p-3 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          className="text-md text-zinc-100 border border-zinc-700 rounded-lg p-3 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <div>
+          {errors && (
+          <p className="text-red-500 text-sm text-center">{errors}</p>
+          )}
         </div>
+        <button
+          type="submit"
+          className="w-full bg-blue-600 text-white text-lg font-semibold py-3 rounded-lg hover:bg-blue-700 transition duration-300"
+        >
+          {isSigningUp ? "Sign Up" : "Log In"}
+        </button>
+        </form>
+        <p className="text-zinc-200 text-center mt-4">
+        {isSigningUp
+          ? "Already have an account? "
+          : "Don't have an account? "}
+        <span
+          className="text-blue-500 cursor-pointer"
+          onClick={() => setIsSigningUp(!isSigningUp)}
+        >
+          {isSigningUp ? "Log In" : "Sign Up"}
+        </span>
+        </p>
+      </div>
       </div>
     );
   }
@@ -245,6 +246,9 @@ function App() {
         style={{
           backgroundImage: `url(${backgroundImage})`,
           backgroundSize: "cover",
+          backgroundColor: "rgba(2, 2, 2, 2)", // Add a dark overlay
+          backgroundBlendMode: "", // Blend the overlay with the image
+          // backdropFilter: "blur(8px)",
         }}
       >
         <div
