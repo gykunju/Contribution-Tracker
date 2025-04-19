@@ -12,8 +12,32 @@ export default defineConfig({
   ],
   build: {
     minify: "esbuild", // Ensure JavaScript is minified
-    chunkSizeWarningLimit: 500, // Reduce chunk size warnings
-    outDir: 'dist' // Output directory
+    chunkSizeWarningLimit: 1000, // Increase warning limit to 1000kb
+    outDir: "dist", // Output directory
+    assetsInlineLimit: 4096, // This ensures SVGs are processed as assets
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          // Group React dependencies together
+          'react-vendor': ['react', 'react-dom'],
+          
+          // Group Supabase dependencies
+          'supabase-vendor': ['@supabase/supabase-js'],
+          
+          // Group all icons together
+          'icons': [
+            'react-icons/gr',
+            'react-icons/bs',
+            'react-icons/md',
+            'react-icons/io5',
+            'react-icons/bi'
+          ],
+          
+          // Group utilities together
+        }
+      }
+    },
+    target: 'esnext'
   },
   base: process.env.NODE_ENV === "production" ? "/Contribution-Tracker/" : "/", // Use correct base for GitHub Pages
 });
